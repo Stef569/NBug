@@ -258,7 +258,8 @@ namespace NBug.Tests.Integration
 		[Fact]
 		public void StoragePathCustom()
 		{
-			Settings.StoragePath = "C:\\";
+			string temp = Path.GetTempPath();
+			Settings.StoragePath = temp;
 			new BugReport().Report(new Exception(), ExceptionThread.Main);
 			Assert.Equal(Storer.GetReportCount(), 1);
 
@@ -266,7 +267,7 @@ namespace NBug.Tests.Integration
 			using (var stream = storer.GetFirstReportFile())
 			{
 				Assert.NotNull(stream);
-				Assert.True(storer.FilePath.Contains("C:\\"));
+				Assert.True(storer.FilePath.Contains(temp));
 				storer.DeleteCurrentReportFile();
 			}
 
