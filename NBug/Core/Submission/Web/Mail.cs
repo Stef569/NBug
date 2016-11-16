@@ -10,7 +10,7 @@ namespace NBug.Core.Submission.Web
 	using System.IO;
 	using System.Net;
 	using System.Net.Mail;
-
+	using Helpers;
 	using NBug.Core.Reporting.Info;
 	using NBug.Core.Util.Logging;
 	using NBug.Core.Util.Serialization;
@@ -170,7 +170,8 @@ namespace NBug.Core.Submission.Web
 
 				if (!string.IsNullOrEmpty(this.CustomSubject))
 				{
-					message.Subject = this.CustomSubject;
+					var parser = new TemplateParser(report, exception);
+					message.Subject = parser.Parse(CustomSubject);
 				}
 				else
 				{
@@ -180,7 +181,8 @@ namespace NBug.Core.Submission.Web
 
 				if (!string.IsNullOrEmpty(this.CustomBody))
 				{
-					message.Body = this.CustomBody + Environment.NewLine + Environment.NewLine + report + Environment.NewLine + Environment.NewLine + exception;
+					var parser = new TemplateParser(report, exception);
+					message.Body = parser.Parse(CustomBody);
 				}
 				else
 				{

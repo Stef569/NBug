@@ -25,17 +25,10 @@ namespace NBug.Core.Reporting.Info
 
 		internal GeneralInfo(SerializableException serializableException)
 		{
-			// this.HostApplication = Settings.EntryAssembly.GetName().Name; // Does not get the extensions of the file!
-			this.HostApplication = Settings.EntryAssembly.GetLoadedModules()[0].Name;
-
-			// this.HostApplicationVersion = Settings.EntryAssembly.GetName().Version.ToString(); // Gets AssemblyVersion not AssemblyFileVersion
-			this.HostApplicationVersion = this.NBugVersion = FileVersionInfo.GetVersionInfo(Settings.EntryAssembly.Location).ProductVersion;
-
-			// this.NBugVersion = System.Reflection.Assembly.GetCallingAssembly().GetName().Version.ToString(); // Gets AssemblyVersion not AssemblyFileVersion
-			this.NBugVersion = FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion;
-
-			this.CLRVersion = Environment.Version.ToString();
-
+			this.HostApplication = AssemblyInfo.AppFileName;
+			this.HostApplicationVersion = AssemblyInfo.AppVersion;
+			this.NBugVersion = AssemblyInfo.CallingAssemblyVersion;
+			this.CLRVersion = SystemInfo.RuntimeVersion;
 			this.DateTime = System.DateTime.UtcNow.ToString();
 
 			if (serializableException != null)
