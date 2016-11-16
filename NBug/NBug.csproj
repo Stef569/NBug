@@ -120,7 +120,7 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Helpers\EmailDestinationBuilder.cs" />
-    <Compile Include="Helpers\TokenParser.cs" />
+    <Compile Include="Helpers\TemplateParser.cs" />
     <Compile Include="Properties\Localization.de.Designer.cs">
       <DependentUpon>Localization.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
